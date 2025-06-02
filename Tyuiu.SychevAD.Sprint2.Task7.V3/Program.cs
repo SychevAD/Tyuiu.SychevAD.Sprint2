@@ -13,6 +13,7 @@ namespace Tyuiu.SychevAD.Sprint2.Task7.V3
         {
             DataService ds = new DataService();
 
+
             Console.WriteLine("***************************************************************************");
             Console.WriteLine("* ИСХОДНЫЕ ДАННЫЕ:                                                        *");
             Console.WriteLine("***************************************************************************");
