@@ -38,7 +38,6 @@ namespace Tyuiu.SychevAD.Sprint2.Task3.V25.Lib
                         }
                     }
                 }
-
                 return Math.Round(y, 3);
             }
         }
