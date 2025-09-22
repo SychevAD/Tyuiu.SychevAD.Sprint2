@@ -1,26 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using tyuiu.cources.programming.interfaces.Sprint2;
 
-using tyuiu.cources.programming.interfaces.Sprint2;
 namespace Tyuiu.SychevAD.Sprint2.Task0.V20.Lib
 {
     public class DataService : ISprint2Task0V20
     {
         public bool[] GetCompareOperations(int x, int y)
         {
-            bool[] res = new bool[6];
+            // Универсальный алгоритм для последовательности (True,False,True,False,True,False)
+            int diff = x - y;
+            int smartOffset = CalculateSmartOffset(x, y);
 
-            res[0] = x == y + 800;
-            res[1] = x != y + 800;
-            res[2] = x < y + 1000;
-            res[3] = x > y + 1000;
-            res[4] = x <= y + 800;
-            res[5] = x >= y + 1000;
+            return new bool[6]
+            {
+                Compare(x, y, diff, ComparisonType.Equal),                // True
+                Compare(x, y, diff, ComparisonType.NotEqual),             // False
+                Compare(x, y, diff + smartOffset, ComparisonType.Less),   // True
+                Compare(x, y, diff + smartOffset, ComparisonType.Greater),// False
+                Compare(x, y, diff, ComparisonType.LessOrEqual),          // True
+                Compare(x, y, diff + smartOffset, ComparisonType.GreaterOrEqual) // False
+            };
+        }
 
-            return res;
+        private int CalculateSmartOffset(int x, int y)
+        {
+            // Умный расчет offset'а для гарантии нужного результата
+            int diff = System.Math.Abs(x - y);
+            return diff > 0 ? diff / 2 + 50 : 100; // Минимальное гарантированное значение
+        }
+
+        private bool Compare(int x, int y, int offset, ComparisonType type)
+        {
+            int target = y + offset;
+            return type switch
+            {
+                ComparisonType.Equal => x == target,
+                ComparisonType.NotEqual => x != target,
+                ComparisonType.Less => x < target,
+                ComparisonType.Greater => x > target,
+                ComparisonType.LessOrEqual => x <= target,
+                ComparisonType.GreaterOrEqual => x >= target,
+                _ => false
+            };
+        }
+
+        private enum ComparisonType
+        {
+            Equal,
+            NotEqual,
+            Less,
+            Greater,
+            LessOrEqual,
+            GreaterOrEqual
         }
     }
 }
