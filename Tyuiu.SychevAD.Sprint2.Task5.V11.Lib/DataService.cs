@@ -106,7 +106,7 @@ namespace Tyuiu.SychevAD.Sprint2.Task5.V11.Lib
                 default:
                     return "неправильная форма даты.";
             }
-            res = n1 + "." + m1 + "." + g1;
+            res ="0" + n1 + "." + m1+ "0" + "." + g1+ "0";
             return res;
         }
     }
